@@ -3,8 +3,6 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
-RUN apt-get update && apt-get install -y opencv-python-headless
-RUN pip install opencv-python-headless
 RUN pip install -r requirements.txt
 COPY DogDog8.mp4 DogDog8.mp4
 COPY mvp.py mvp.py
