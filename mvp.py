@@ -81,6 +81,7 @@ video_file = open('DogDog8.mp4', 'rb')
 video_bytes = video_file.read()
 st.video(video_bytes)
 
+st.write("Шаг 3. Запустите анализ эмоций, нажав кнопку ANALYZE EMOTION")
 placeholder_1 = st.empty()
 placeholder_2 = st.empty()
 start_button = st.empty()
@@ -92,7 +93,7 @@ EMOTION_COUNT = {'angry': 0,
                  'surprise': 0,
                  'neutral': 0}
 LINE_DATA = []
-if start_button.button('Enable emotion recognition', key='start'):
+if start_button.button('ANALYZE EMOTION', key='start'):
     start_button.empty()
     if st.button('Stop', key='stop'):
         st.stop()
@@ -100,5 +101,3 @@ if start_button.button('Enable emotion recognition', key='start'):
         make_barchart()
         make_linegraph()
         time.sleep(0.1)
-
-# TODO: сделать в конце показ конечных графиков
