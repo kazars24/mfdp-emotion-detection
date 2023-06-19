@@ -7,9 +7,13 @@
 * streamlit
 * streamlit-webrtc
 * av
-opencv-python (cv2)
-fer
-matplotlib
-seaborn
-plotly
-ffmpeg
+* opencv-python (cv2)
+* fer
+* matplotlib
+* seaborn
+* plotly
+* ffmpeg
+Установка зависимостей может быть выполнена с использованием менеджера пакетов pip следующим образом:
+```
+pip install streamlit streamlit-webrtc av opencv-python fer matplotlib seaborn plotly
+```
