@@ -134,3 +134,54 @@ if start_button.button('Enable emotion recognition', key='start'):
         make_linegraph()
         time.sleep(0.1)
 ```
+### Модуль 2: Функция обратного вызова (callback)
+```
+def callback(frame):
+    # Создание экземпляра детектора эмоций
+    detector = FER(mtcnn=True)
+    img = frame.to_ndarray(format="bgr24")
+
+    # Распознавание эмоций на изображении
+    captured_emotions = detector.detect_emotions(img)
+
+    if captured_emotions:
+        label = max(captured_emotions[0]['emotions'], key=captured_emotions[0]['emotions'].get)
+        EMOTION_COUNT[label] += 1
+
+        # Обработка эмоциональной оценки для графика
+        if label in ['happy', 'surprise']:
+            LINE_DATA.append(1)
+        elif label in ['angry', 'disgust', 'fear', 'sad']:
+            LINE_DATA.append(-1)
+        elif label == 'neutral':
+            LINE_DATA.append(0)
+
+        # Извлечение координат лица и оценки вероятности эмоции
+        xmin, ymin, w, h = captured_emotions[0]['box']
+        xmax = w + xmin
+        ymax = h + ymin
+        score = captured_emotions[0]['emotions'][label]
+
+        caption = f"{label}: {round(score * 100, 2)}%"
+
+        # Отрисовка прямоугольника и подписи на изображении
+        cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (255, 0, 0), 2)
+        cv2.putText(
+            img,
+            caption,
+            (xmin, ymin - 15 if ymin - 15 > 15 else ymin + 15),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (255, 0, 0),
+            2,
+        )
+    return av.VideoFrame.from_ndarray(img, format="bgr24")
+```
+### Модуль 3: Функция создания столбчатой диаграммы (make_barchart)
+```
+def make_barchart():
+    # Создание столбчатой диаграммы для визуализации количества эмоций
+    fig = plt.figure(figsize=(10, 5))
+    sns.barplot(x=list(EMOTION_COUNT.keys()), y=list(EMOTION_COUNT.values()))
+    placeholder_1.write(fig)
+```
