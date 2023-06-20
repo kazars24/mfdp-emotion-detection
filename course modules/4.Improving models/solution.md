@@ -13,8 +13,9 @@
 Используемый инструменты версионирования экспериментов - clearML.
 
 ## Результаты
-| Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
-| Row 1    | Cell 2   | Cell 3   |
+### Facial Affect Dataset(short)
+| Алгоритм | Сек/кадр | Accuracy | Не найдено лиц |
+|----------|----------|----------|----------------|
+| MTCNN + InceptionResnetV1 | 0.04 | 0.32 | 0.19% |
 | Row 2    | Cell 5   | Cell 6   |
 | Row 3    | Cell 8   | Cell 9   |
