@@ -1,3 +1,5 @@
+import time
+
 import av
 import cv2
 import matplotlib.pyplot as plt
@@ -101,3 +103,4 @@ if start_button.button('ANALYZE EMOTION', key='start'):
         while True:
             make_barchart(placeholder_1)
             make_linegraph(placeholder_2)
+            time.sleep(0.1)
