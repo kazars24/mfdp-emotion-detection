@@ -31,13 +31,20 @@
 for expression label：
 
 1: Surprise
+
 2: Fear
+
 3: Disgust
+
 4: Happiness
+
 5: Sadness
+
 6: Anger
+
 7: Neutral
 
+```
 @inproceedings{li2017reliable,
   title={Reliable crowdsourcing and deep locality-preserving learning for expression recognition in the wild},
   author={Li, Shan and Deng, Weihong and Du, JunPing},
@@ -46,6 +53,7 @@ for expression label：
   year={2017},
   organization={IEEE}
 }
+```
 
 ## **Бизнес-метрики**
 Тут у меня возникли наибольшие трудности, но вот, что получилось собрать из статей и с просторов интернета.
