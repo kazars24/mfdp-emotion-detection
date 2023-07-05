@@ -26,28 +26,26 @@
 3. [RAF Face Database](http://www.whdeng.cn/raf/model1.html)
 
 ### **Описание**
-Набор данных Expression in-the-Wild (ExpW) предназначен для распознавания выражений лиц и содержит 91 793 лица, помеченныхвручную. Каждое из изображений лица помечено как одна из семи основных категорий выражения: “гнев”, “отвращение”, “страх”, “счастье”, “грусть”, “удивление” или “нейтральное”.
-
-Лейблы содержат координаты баундинбокса лица класс, к которому относится эмоция.
+Набор данных RAF Face Database предназначен для распознавания выражений лиц и содержит 12271 изображения в тренировочной выборке и 3068 - в тестовой. Для каждого изображения отмечены координаты баундин бокса лица и класс эмоции, т.е. одна из семи категорий: “гнев”, “отвращение”, “страх”, “счастье”, “грусть”, “удивление” или “нейтральное”.
 
 for expression label：
 
-"0" "angry"
+1: Surprise
+2: Fear
+3: Disgust
+4: Happiness
+5: Sadness
+6: Anger
+7: Neutral
 
-"1" "disgust"
-
-"2" "fear"
-
-"3" "happy"
-
-"4" "sad"
-
-"5" "surprise"
-
-"6" "neutral"
-
-Лейблы записываются в формате:
-`image_name face_id_in_image face_box_top face_box_left face_box_right face_box_bottom face_box_cofidence expression_label`
+@inproceedings{li2017reliable,
+  title={Reliable crowdsourcing and deep locality-preserving learning for expression recognition in the wild},
+  author={Li, Shan and Deng, Weihong and Du, JunPing},
+  booktitle={Computer Vision and Pattern Recognition (CVPR), 2017 IEEE Conference on},
+  pages={2584--2593},
+  year={2017},
+  organization={IEEE}
+}
 
 ## **Бизнес-метрики**
 Тут у меня возникли наибольшие трудности, но вот, что получилось собрать из статей и с просторов интернета.
