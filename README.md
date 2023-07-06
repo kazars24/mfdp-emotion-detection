@@ -72,3 +72,6 @@ docker run -p 8502:8502 mfdp
 1. Включите камеру, нажав на красную кнопку START
 2. Запустите видео
 3. Запустите анализ эмоций, нажав кнопку ANALYZE EMOTION
+
+## Техническая документация
+[Техническая документация](https://github.com/kazars24/mfdp-emotion-detection/blob/main/course%20modules/5.%20Packaging%20the%20service/techdocs.md)
