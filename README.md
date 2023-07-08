@@ -20,6 +20,14 @@
 
 Более подробно о проекте, метриках и данных можно ознакомиться в разделе [course modules/2.Formulating the problem in terms of ML](https://github.com/kazars24/mfdp-emotion-detection/tree/main/course%20modules/2.Formulating%20the%20problem%20in%20terms%20of%20ML)
 
+## структура репозитория
+- `course modules` - раздел с решениями каждого модуля курса MFDP2:
+  - `1.Task presentation and dataset selection`
+  - `2.Formulating the problem in terms of ML`
+  - `3.Creating a prototype of the product`
+  - `4.Improving models`
+  - `5.Packaging the service`
+
 ## Выбор моделей
 Используемый пайплайн состоит из двух частей: детекция лиц на изображении и классификация эмоций. В ходе экспериментов были выбраны наиболее оптимальные модели для данных задач.
 ### Детекция лиц
