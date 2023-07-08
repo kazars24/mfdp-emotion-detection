@@ -31,20 +31,19 @@ pip install -r requirements.txt
 Основной модуль приложения, который содержит код для запуска веб-интерфейса и обработки видео с использованием веб-камеры. Включает следующие функции:
 
 * __callback(frame)__: Функция, которая выполняет распознавание эмоций на кадре видео. Используется как параметр video_frame_callback в webrtc_streamer.
-* __make_barchart(placeholder)__: Функция для создания столбчатой диаграммы, визуализирующей количество обнаруженных эмоций.
-* __make_linegraph(placeholder)__: Функция для создания линейного графика, отображающего эмоциональную динамику.
+* __make_barchart(placeholder)__: Функция для создания столбчатой диаграммы, визуализирующей количество обнаруженных эмоций. Записывает значения EMOTION_COUNT в session_state.
+* __make_linegraph(placeholder)__: Функция для создания линейного графика, отображающего эмоциональную динамику. Записывает значения LINE_DATA в session_state.
 ```
 import time
 
 import av
 import cv2
-import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import plotly.express as px
-import seaborn as sns
 import streamlit as st
 from PIL import Image
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import WebRtcMode, webrtc_streamer
 
 from utils.model_class import EmoRecNet
 
@@ -58,14 +57,27 @@ EMOTION_COUNT = {'angry': 0,
                  'surprise': 0,
                  'neutral': 0}
 LINE_DATA = []
-model = EmoRecNet()
+if 'emotion_count_dict' not in st.session_state:
+    st.session_state['emotion_count_dict'] = {'angry': 0,
+                                              'disgust': 0,
+                                              'fear': 0,
+                                              'happy': 0,
+                                              'sad': 0,
+                                              'surprise': 0,
+                                              'neutral': 0}
+if 'emotion_dinamics' not in st.session_state:
+    st.session_state['emotion_dinamics'] = []
+if 'analyze' not in st.session_state:
+    st.session_state['analyze'] = False
 
+model = EmoRecNet()
 
 def callback(frame):
     img = frame.to_ndarray(format="bgr24")
     img = Image.fromarray(img)
 
     captured_emotions = model.predict(img)
+
 
     for face in captured_emotions:
         box = face['bbox']
@@ -97,19 +109,30 @@ def callback(frame):
 
 
 def make_barchart(placeholder):
-    fig = plt.figure(figsize=(10, 5))
-    sns.barplot(x=list(EMOTION_COUNT.keys()), y=list(EMOTION_COUNT.values()))
+    if st.session_state['analyze']:
+        st.session_state['emotion_count_dict'] = EMOTION_COUNT
+    
+    emotions = list(EMOTION_COUNT.keys())
+    counts = list(EMOTION_COUNT.values())
+    data = {'Emotion': emotions, 'Count': counts}
+    df = pd.DataFrame(data)
+    fig = px.bar(df, x='Emotion', y='Count', color='Emotion')
+    fig.update_layout(title='Emotion count')
     placeholder.write(fig)
 
 
 def make_linegraph(placeholder):
+    if st.session_state['analyze']:
+        st.session_state['emotion_dinamics'] = LINE_DATA
+
     fig = px.line(LINE_DATA)
-    fig.update_layout(xaxis_title="frame", yaxis_title="emotion", title='Emotion graph')
+    fig.update_layout(xaxis_title="Frame", yaxis_title="Emotion", title='Emotion dinamics')
     placeholder.write(fig)
 
 
 st.write("Шаг 1. Включите камеру, нажав на красную кнопку START")
 webrtc_streamer(key="example",
+                mode=WebRtcMode.SENDRECV,
                 video_frame_callback=callback,
                 media_stream_constraints={"video": True, "audio": False},
                 async_processing=True)
@@ -135,11 +158,28 @@ stop_flag = True
 
 if start_button.button('ANALYZE EMOTION', key='start'):
     start_button.empty()
+    st.session_state['analyze'] = True
     if not st.button('Stop', key='stop'):
         while True:
             make_barchart(placeholder_1)
             make_linegraph(placeholder_2)
             time.sleep(0.1)
+    else:
+        emotion_count_data = st.session_state['emotion_count_dict']
+        emotions = list(emotion_count_data.keys())
+        counts = list(emotion_count_data.values())
+        data_dict = {'Emotion': emotions, 'Count': counts}
+        df = pd.DataFrame(data_dict)
+        fig_bar = px.bar(df, x='Emotion', y='Count', color='Emotion')
+        fig_bar.update_layout(title='Emotion count')
+        st.plotly_chart(fig_bar, use_container_width=True)
+
+        emotion_dinamics_data = st.session_state['emotion_dinamics']
+        fig_line = px.line(emotion_dinamics_data)
+        fig_line.update_layout(xaxis_title="Frame", yaxis_title="Emotion", title='Emotion dinamics')
+        st.plotly_chart(fig_line, use_container_width=True)
+
+
 ```
 ### Модуль 2: Класс используемого ML-модуля (файл utils/model_class.py)
 Класс __EmoRecNet__ реализует распознавание эмоций на лицах с использованием модели YOLOv8n для обнаружения лиц и модели ResNet для классификации эмоций. Класс обеспечивает обработку изображений, обнаружение лиц, классификацию эмоций и возвращает результаты в виде словарей с информацией о координатах баундин бокса лица в фомате [xmin, ymin, xmax, ymax] и классе эмоции.
