@@ -20,7 +20,7 @@
 
 Более подробно о проекте, метриках и данных можно ознакомиться в разделе [course modules/2.Formulating the problem in terms of ML](https://github.com/kazars24/mfdp-emotion-detection/tree/main/course%20modules/2.Formulating%20the%20problem%20in%20terms%20of%20ML)
 
-## структура репозитория
+## Структура репозитория
 - `course modules` - раздел с решениями каждого модуля курса MFDP2:
   - `1.Task presentation and dataset selection` - модуль 1 "Презентация задачи и выбор датасета".
     - `solution.md` - решение для 1 модуля.
