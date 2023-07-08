@@ -22,11 +22,22 @@
 
 ## структура репозитория
 - `course modules` - раздел с решениями каждого модуля курса MFDP2:
-  - `1.Task presentation and dataset selection`
-  - `2.Formulating the problem in terms of ML`
-  - `3.Creating a prototype of the product`
-  - `4.Improving models`
-  - `5.Packaging the service`
+  - `1.Task presentation and dataset selection` - модуль 1 "Презентация задачи и выбор датасета".
+    - `solution.md` - решение для 1 модуля.
+  - `2.Formulating the problem in terms of ML` - модуль 2 "Формулируем задачу в терминах МL".
+    - `2nd_module.ipynb` - файл с описанием, бизнес-метриками и первым бейзлайном.
+    - `solution.md` - решение для 2 модуля.
+  - `3.Creating a prototype of the product` - модуль 3 "Создаем прототип продукта".
+    - `solution.md` - решение для 3 модуля.
+  - `4.Improving models` - модуль 4 "Улучшаем модели".
+    - `confusion_matrix.png` - матрица ошибок конечной модели классификации эмоций.
+    - `experiments.ipynb` - первая версия экспериментов по подбору оптимального решения.
+    - `experiments_v2.ipynb` - вторая версия экспериментов по подбору оптимального решения.
+    - `solution.md` - решение для 4 модуля.
+  - `5.Packaging the service` - модуль 5 "Упаковываем сервис".
+    - `how_to_use.md` - инструкция по запуску приложения.
+    - `solution.md` - решение для 5 модуля.
+    - `techdocs.md` - техническая документация.
 
 ## Выбор моделей
 Используемый пайплайн состоит из двух частей: детекция лиц на изображении и классификация эмоций. В ходе экспериментов были выбраны наиболее оптимальные модели для данных задач.
